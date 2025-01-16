@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\LogCarimbo;
+use App\Models\CartaoFidelidade;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -32,18 +33,24 @@ class ClienteController extends Controller
                 foreach($clientes as $c){
                     $c->cartoes;
 
-                    $ultimoCartao = $c->cartoes()->latest('update_at')->first();
-                    if ($ultimoCartao) {
-                        $c->ultimoCorte = Carbon::parse($ultimoCartao->updated_at)
-                        ->format('d/m/Y H:i');
-                    } else {
-                        $c->ultimoCorte = null;
-                    }
-
                     $c->totalCortes = LogCarimbo::
                     join('cartao_fidelidades', 'cartao_fidelidades.id' , '=', 'log_carimbos.cartao_id')
                     ->where('cliente_id', $c->id)
                     ->count();
+
+                    $ultimoCartao = $c->cartoes()->latest('update_at')->first();
+                    if ($ultimoCartao) {
+                        if($c->totalCortes > 0){
+                            $c->ultimoCorte = Carbon::parse($ultimoCartao->updated_at)
+                            ->format('d/m/Y H:i');
+                        } else {
+                            $c->ultimoCorte = null;
+                        }
+                    } else {
+                        $c->ultimoCorte = null;
+                    }
+
+  
                 }
         
                 return response()->json($clientes);
@@ -65,6 +72,15 @@ class ClienteController extends Controller
                 $data['empresa_id'] = $user->empresa_id;
     
                 $result = Cliente::create($data);
+
+                $newCartao = CartaoFidelidade::create([
+                    'cliente_id' => $result->id,
+                    'finalizado' => 0,
+                    'qtd_carimbos' => 0
+                ]);
+
+                $result->cartoes;
+                $result->totalCortes = 0;
  
                 return response()->json($result);
             } else {

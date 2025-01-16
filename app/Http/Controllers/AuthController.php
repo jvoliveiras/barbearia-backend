@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Facades\Log;
-
+use App\Models\Empresa;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -63,6 +63,29 @@ class AuthController extends Controller
         $user = JWTAuth::user(); 
         
         return response()->json($user);
+    }
+
+    public function criaUsuarioMaster()
+    {
+        $empresas = Empresa::first();
+        if(!$empresas){
+            $empresaMaster =  Empresa::create([
+                'nome' => 'ADM System'
+            ]);
+
+            $userMaster = User::create([
+                'empresa_id' => $empresaMaster->id,
+                'name' => 'User ADM',
+                'password' => bcrypt('123455'),
+                'email' => 'victor7_oliveira@hotmail.com'
+            ]);
+
+            if($empresaMaster && $userMaster){
+                return response()->json('Criado com sucesso');
+            }else {
+                return response()->json('Erro');
+            }
+        }
     }
 
 }

@@ -18,22 +18,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $empresas = Empresa::factory()->count(10)->create();
+        // $empresas = Empresa::factory()->count(10)->create();
 
-        $user = User::factory()->count(10)->create();
+        // $user = User::factory()->count(10)->create();
 
-        $empresas->each(function ($empresa) {
+        // $empresas->each(function ($empresa) {
 
-            for ($i = 0; $i < 15; $i++) {
-                $cliente = Cliente::factory()->create([
-                    'empresa_id' => $empresa->id,
-                ]);
+        //     for ($i = 0; $i < 15; $i++) {
+        //         $cliente = Cliente::factory()->create([
+        //             'empresa_id' => $empresa->id,
+        //         ]);
 
-                CartaoFidelidade::create([
-                    'cliente_id' => $cliente->id
-                ]);
-            }
+        //         CartaoFidelidade::create([
+        //             'cliente_id' => $cliente->id
+        //         ]);
+        //     }
 
-        });
+        // });
+
+        $empresas = Empresa::factory()->count(1)->create();
+
+        $user = User::factory()->count(1)->create();
     }
 }

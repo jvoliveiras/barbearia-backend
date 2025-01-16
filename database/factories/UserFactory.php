@@ -14,10 +14,19 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        // return [
+        //     'empresa_id' => $this->faker->randomElement([1, 2, 3, 4]),
+        //     'name' => $this->faker->name(),
+        //     'email' => $this->faker->unique()->safeEmail(),
+        //     'email_verified_at' => now(),
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        //     'remember_token' => Str::random(10),
+        // ];
+
         return [
-            'empresa_id' => $this->faker->randomElement([1, 2, 3, 4]),
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'empresa_id' => 1,
+            'name' => 'User ADM',
+            'email' => 'victor7_oliveira@hotmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),

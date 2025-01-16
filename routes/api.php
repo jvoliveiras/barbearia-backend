@@ -8,6 +8,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\CartaoFidelidadeController;
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('criaUsuarioMaster', [AuthController::class, 'criaUsuarioMaster']);
 
 Route::middleware('auth:api')->group(function () {
     Route::get('validaToken', [AuthController::class, 'validaToken']);
