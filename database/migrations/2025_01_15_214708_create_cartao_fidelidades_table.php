@@ -16,7 +16,7 @@ class CreateCartaoFidelidadesTable extends Migration
         Schema::create('cartao_fidelidades', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('cliente_id')->unsigned();
+            $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')
             ->on('clientes')->onDelete('cascade');
 

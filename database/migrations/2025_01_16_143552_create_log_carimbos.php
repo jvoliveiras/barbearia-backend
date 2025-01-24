@@ -16,11 +16,11 @@ class CreateLogCarimbos extends Migration
         Schema::create('log_carimbos', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('usuario_id')->unsigned();
+            $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')
             ->on('users')->onDelete('cascade');
 
-            $table->integer('cartao_id')->unsigned();
+            $table->unsignedBigInteger('cartao_id');
             $table->foreign('cartao_id')->references('id')
             ->on('cartao_fidelidades')->onDelete('cascade');
 
