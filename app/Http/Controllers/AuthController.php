@@ -76,7 +76,7 @@ class AuthController extends Controller
             $userMaster = User::create([
                 'empresa_id' => $empresaMaster->id,
                 'name' => 'User ADM',
-                'password' => bcrypt('123455'),
+                'password' => bcrypt('12345'),
                 'email' => 'victor7_oliveira@hotmail.com'
             ]);
 
