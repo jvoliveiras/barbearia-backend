@@ -38,7 +38,7 @@ class ClienteController extends Controller
                     ->where('cliente_id', $c->id)
                     ->count();
 
-                    $ultimoCartao = $c->cartoes()->latest('update_at')->first();
+                    $ultimoCartao = $c->cartoes()->latest('updated_at')->first();
                     if ($ultimoCartao) {
                         if($c->totalCortes > 0){
                             $c->ultimoCorte = Carbon::parse($ultimoCartao->updated_at)
